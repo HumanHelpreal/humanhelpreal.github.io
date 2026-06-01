@@ -1,0 +1,734 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Human Help</title>
+<meta name="description" content="Real career and life advice for real people. Free, honest, no fluff.">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Instrument+Serif:ital@0;1&family=Space+Grotesk:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --w:#F5F0E8;
+  --b:#0D0D0D;
+  --r:#C8392B;
+  --g:#2D5A3D;
+  --y:#E8C547;
+  --gr:#888;
+}
+html{scroll-behavior:smooth;}
+body{
+  background:var(--w);
+  color:var(--b);
+  font-family:'Space Grotesk',sans-serif;
+  overflow-x:hidden;
+  cursor:none;
+}
+#cursor{
+  position:fixed;width:12px;height:12px;
+  background:var(--r);border-radius:50%;
+  pointer-events:none;z-index:9999;
+  transform:translate(-50%,-50%);
+  transition:transform 0.1s,width 0.2s,height 0.2s;
+  mix-blend-mode:multiply;
+}
+#cursor.big{width:48px;height:48px;}
+
+/* TICKER */
+.ticker{
+  background:var(--b);color:var(--w);
+  padding:10px 0;overflow:hidden;
+  white-space:nowrap;position:relative;
+  z-index:10;
+  border-bottom:3px solid var(--r);
+}
+.ticker-inner{
+  display:inline-block;
+  animation:tick 22s linear infinite;
+  font-family:'Space Grotesk',sans-serif;
+  font-size:0.75rem;letter-spacing:0.15em;text-transform:uppercase;
+}
+.ticker-inner span{margin:0 3rem;color:var(--y);}
+@keyframes tick{from{transform:translateX(0);}to{transform:translateX(-50%);}}
+
+/* NAV */
+nav{
+  display:flex;align-items:stretch;
+  border-bottom:2px solid var(--b);
+  position:sticky;top:0;z-index:50;
+  background:var(--w);
+}
+.nav-logo-block{
+  padding:18px 28px;
+  border-right:2px solid var(--b);
+  display:flex;align-items:center;
+}
+.nav-logo{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:1.6rem;letter-spacing:0.12em;
+  color:var(--b);text-decoration:none;
+  line-height:1;
+}
+.nav-logo span{color:var(--r);}
+.nav-links{
+  display:flex;list-style:none;
+  margin-left:auto;
+}
+.nav-links li{border-left:2px solid var(--b);}
+.nav-links a{
+  display:flex;align-items:center;
+  padding:0 1.6rem;
+  font-size:0.72rem;letter-spacing:0.14em;text-transform:uppercase;
+  font-weight:500;color:var(--b);text-decoration:none;
+  transition:background 0.15s,color 0.15s;
+  height:100%;
+}
+.nav-links a:hover{background:var(--b);color:var(--w);}
+.nav-cta{background:var(--r)!important;color:var(--w)!important;}
+.nav-cta:hover{background:var(--b)!important;}
+
+/* HERO */
+.hero{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  min-height:92vh;
+  border-bottom:2px solid var(--b);
+}
+.hero-left{
+  border-right:2px solid var(--b);
+  padding:5rem 4rem 4rem;
+  display:flex;flex-direction:column;
+  justify-content:space-between;
+  position:relative;
+  overflow:hidden;
+}
+.hero-issue{
+  font-size:0.7rem;letter-spacing:0.2em;text-transform:uppercase;
+  color:var(--gr);margin-bottom:2.5rem;
+}
+.hero-h1{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:clamp(4rem,9vw,8rem);
+  line-height:0.95;
+  letter-spacing:0.02em;
+  margin-bottom:2rem;
+}
+.hero-h1 .red{color:var(--r);}
+.hero-h1 .italic{
+  font-family:'Instrument Serif',serif;
+  font-style:italic;
+  font-size:0.85em;
+  letter-spacing:0;
+}
+.hero-desc{
+  font-size:1rem;color:#444;line-height:1.8;
+  max-width:400px;margin-bottom:3rem;
+  font-weight:300;
+}
+.hero-bottom{
+  display:flex;align-items:center;gap:1.5rem;
+  padding-top:2rem;border-top:1px solid #ccc;
+}
+.btn-primary{
+  display:inline-block;
+  background:var(--b);color:var(--w);
+  padding:14px 32px;
+  font-size:0.78rem;letter-spacing:0.14em;text-transform:uppercase;font-weight:500;
+  text-decoration:none;
+  transition:background 0.15s,transform 0.1s;
+}
+.btn-primary:hover{background:var(--r);transform:translateY(-2px);}
+.btn-ghost{
+  font-size:0.78rem;letter-spacing:0.1em;text-transform:uppercase;
+  color:var(--gr);text-decoration:none;
+  border-bottom:1px solid var(--gr);
+  padding-bottom:2px;
+  transition:color 0.15s,border-color 0.15s;
+}
+.btn-ghost:hover{color:var(--b);border-color:var(--b);}
+
+.hero-right{
+  display:grid;
+  grid-template-rows:1fr 1fr;
+}
+.hero-right-top{
+  border-bottom:2px solid var(--b);
+  padding:3rem;
+  background:var(--b);
+  display:flex;flex-direction:column;justify-content:flex-end;
+  position:relative;
+  overflow:hidden;
+}
+.hero-right-top::before{
+  content:'?';
+  position:absolute;top:-0.1em;right:0.1em;
+  font-family:'Bebas Neue',sans-serif;
+  font-size:22rem;line-height:1;
+  color:rgba(255,255,255,0.04);
+  pointer-events:none;
+}
+.hero-feature-label{
+  font-size:0.68rem;letter-spacing:0.2em;text-transform:uppercase;
+  color:var(--r);margin-bottom:1rem;
+}
+.hero-feature-title{
+  font-family:'Instrument Serif',serif;
+  font-style:italic;
+  font-size:2.2rem;line-height:1.25;
+  color:var(--w);
+  margin-bottom:1rem;
+}
+.hero-feature-desc{font-size:0.88rem;color:#888;line-height:1.7;}
+
+.hero-right-bottom{
+  display:grid;grid-template-columns:1fr 1fr;
+}
+.mini-card{
+  padding:2rem;
+  border-right:2px solid var(--b);
+  display:flex;flex-direction:column;
+  justify-content:space-between;
+  transition:background 0.2s;
+}
+.mini-card:last-child{border-right:none;}
+.mini-card:hover{background:#f0ebe0;}
+.mini-cat{
+  font-size:0.65rem;letter-spacing:0.18em;text-transform:uppercase;
+  color:var(--r);margin-bottom:0.75rem;
+}
+.mini-title{
+  font-family:'Instrument Serif',serif;
+  font-size:1.1rem;line-height:1.4;
+  margin-bottom:1.5rem;flex:1;
+}
+.mini-arrow{
+  font-size:1.3rem;color:var(--b);
+  transition:transform 0.2s;
+  align-self:flex-end;
+  text-decoration:none;color:inherit;
+}
+.mini-card:hover .mini-arrow{transform:translate(4px,-4px);}
+
+/* MARQUEE BAND */
+.band{
+  background:var(--r);
+  padding:14px 0;overflow:hidden;
+  border-top:2px solid var(--b);
+  border-bottom:2px solid var(--b);
+}
+.band-inner{
+  display:inline-block;
+  animation:tick 18s linear infinite;
+  font-family:'Bebas Neue',sans-serif;
+  font-size:1.3rem;letter-spacing:0.18em;color:var(--w);
+  white-space:nowrap;
+}
+.band-inner span{margin:0 2.5rem;opacity:0.5;}
+
+/* ARTICLES */
+#articles{padding:0;}
+.articles-header{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:2.5rem 4rem;
+  border-bottom:2px solid var(--b);
+}
+.articles-header h2{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:2.5rem;letter-spacing:0.06em;
+}
+.articles-header a{
+  font-size:0.75rem;letter-spacing:0.12em;text-transform:uppercase;
+  color:var(--gr);text-decoration:none;
+  border-bottom:1px solid var(--gr);
+}
+.articles-grid{display:grid;grid-template-columns:repeat(3,1fr);}
+.art-card{
+  padding:2.5rem 2.5rem 2rem;
+  border-right:2px solid var(--b);
+  border-bottom:2px solid var(--b);
+  display:flex;flex-direction:column;
+  text-decoration:none;color:inherit;
+  transition:background 0.18s;
+  position:relative;
+  overflow:hidden;
+}
+.art-card:nth-child(3n){border-right:none;}
+.art-card:hover{background:var(--b);color:var(--w);}
+.art-card:hover .art-cat{color:var(--y);}
+.art-card:hover .art-num{color:rgba(255,255,255,0.06);}
+.art-num{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:5rem;line-height:1;
+  color:rgba(0,0,0,0.06);
+  margin-bottom:-0.5rem;
+  transition:color 0.18s;
+  letter-spacing:0.04em;
+}
+.art-cat{
+  font-size:0.67rem;letter-spacing:0.18em;text-transform:uppercase;
+  color:var(--r);margin-bottom:0.6rem;transition:color 0.18s;
+}
+.art-title{
+  font-family:'Instrument Serif',serif;
+  font-size:1.25rem;line-height:1.4;
+  margin-bottom:0.75rem;flex:1;
+}
+.art-desc{font-size:0.84rem;color:#666;line-height:1.7;margin-bottom:1.5rem;}
+.art-card:hover .art-desc{color:#aaa;}
+.art-read{
+  font-size:0.7rem;letter-spacing:0.12em;text-transform:uppercase;
+  font-weight:500;
+  align-self:flex-start;
+  border-bottom:1px solid currentColor;
+  padding-bottom:2px;
+}
+
+/* BIG PULL QUOTE */
+.pullquote{
+  background:var(--g);
+  padding:6rem 4rem;
+  display:flex;align-items:center;justify-content:center;
+  border-bottom:2px solid var(--b);
+  text-align:center;
+}
+.pullquote blockquote{
+  font-family:'Instrument Serif',serif;
+  font-style:italic;
+  font-size:clamp(1.8rem,4vw,3rem);
+  color:var(--w);
+  line-height:1.4;
+  max-width:820px;
+}
+.pullquote blockquote em{color:var(--y);font-style:normal;}
+
+/* AD ZONE */
+.ad-zone{
+  border-bottom:2px solid var(--b);
+  padding:1.5rem 4rem;
+  display:flex;align-items:center;gap:2rem;
+  background:#faf7f2;
+}
+.ad-label{
+  font-size:0.62rem;letter-spacing:0.18em;text-transform:uppercase;
+  color:#bbb;white-space:nowrap;
+}
+.ad-slot{
+  flex:1;min-height:60px;
+  background:#eee;
+  display:flex;align-items:center;justify-content:center;
+  font-size:0.75rem;color:#bbb;letter-spacing:0.1em;text-transform:uppercase;
+}
+
+/* ABOUT */
+#about{
+  display:grid;grid-template-columns:1fr 1fr;
+  border-bottom:2px solid var(--b);
+}
+.about-left{
+  padding:5rem 4rem;
+  border-right:2px solid var(--b);
+}
+.about-label{
+  font-size:0.68rem;letter-spacing:0.2em;text-transform:uppercase;
+  color:var(--r);margin-bottom:1.5rem;
+}
+.about-title{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:clamp(2.5rem,5vw,4rem);
+  letter-spacing:0.04em;
+  line-height:1.05;
+  margin-bottom:2rem;
+}
+.about-body{font-size:0.95rem;color:#444;line-height:1.9;font-weight:300;}
+.about-body p{margin-bottom:1.2rem;}
+.about-right{
+  background:var(--b);
+  padding:5rem 4rem;
+  display:flex;flex-direction:column;justify-content:space-between;
+}
+.principles{list-style:none;display:flex;flex-direction:column;gap:0;}
+.principles li{
+  display:flex;align-items:center;gap:1.5rem;
+  padding:1.4rem 0;
+  border-bottom:1px solid rgba(255,255,255,0.08);
+  font-size:0.9rem;color:#aaa;
+  font-weight:300;
+}
+.principles li .num{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:1.4rem;color:var(--y);
+  min-width:2rem;
+}
+.about-right-footer{
+  margin-top:3rem;
+  padding-top:2rem;
+  border-top:1px solid rgba(255,255,255,0.08);
+}
+.about-right-footer p{font-size:0.78rem;color:#555;line-height:1.7;}
+
+/* TOPICS */
+#topics{border-bottom:2px solid var(--b);}
+.topics-head{
+  padding:2.5rem 4rem;
+  border-bottom:2px solid var(--b);
+  display:flex;align-items:baseline;gap:1.5rem;
+}
+.topics-head h2{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:2.5rem;letter-spacing:0.06em;
+}
+.topics-head span{font-size:0.78rem;color:var(--gr);letter-spacing:0.08em;}
+.topics-grid{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+}
+.topic-item{
+  padding:2.5rem 2rem;
+  border-right:2px solid var(--b);
+  border-bottom:2px solid var(--b);
+  cursor:default;
+  transition:background 0.15s;
+}
+.topic-item:nth-child(4n){border-right:none;}
+.topic-item:nth-child(n+5){border-bottom:none;}
+.topic-item:hover{background:var(--y);}
+.topic-icon{font-size:2rem;margin-bottom:1rem;display:block;}
+.topic-name{
+  font-family:'Instrument Serif',serif;
+  font-size:1.1rem;margin-bottom:0.4rem;
+}
+.topic-count{font-size:0.72rem;color:var(--gr);letter-spacing:0.1em;}
+
+/* CONTACT */
+#contact{
+  display:grid;grid-template-columns:1fr 1fr;
+  min-height:50vh;
+}
+.contact-left{
+  background:var(--r);
+  padding:5rem 4rem;
+  display:flex;flex-direction:column;justify-content:space-between;
+  border-right:2px solid var(--b);
+}
+.contact-left h2{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:clamp(2.5rem,5vw,4.5rem);
+  letter-spacing:0.04em;
+  line-height:1;
+  color:var(--w);
+  margin-bottom:1.5rem;
+}
+.contact-left p{font-size:1rem;color:rgba(255,255,255,0.75);line-height:1.8;font-weight:300;}
+.contact-right{
+  padding:5rem 4rem;
+  display:flex;flex-direction:column;justify-content:center;gap:2rem;
+}
+.contact-right p{font-size:0.9rem;color:#555;line-height:1.8;font-weight:300;}
+.email-link{
+  display:inline-flex;align-items:center;gap:12px;
+  font-family:'Bebas Neue',sans-serif;
+  font-size:1.5rem;letter-spacing:0.08em;
+  color:var(--b);text-decoration:none;
+  border-bottom:3px solid var(--b);
+  padding-bottom:6px;
+  transition:color 0.15s,border-color 0.15s;
+  align-self:flex-start;
+}
+.email-link:hover{color:var(--r);border-color:var(--r);}
+.response-note{font-size:0.75rem;color:#999;letter-spacing:0.08em;text-transform:uppercase;}
+
+/* FOOTER */
+footer{
+  background:var(--b);
+  display:grid;grid-template-columns:1fr 1fr 1fr;
+  border-top:2px solid var(--b);
+}
+.footer-block{
+  padding:2.5rem 2.5rem;
+  border-right:2px solid rgba(255,255,255,0.08);
+}
+.footer-block:last-child{border-right:none;}
+.footer-logo{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:1.8rem;letter-spacing:0.1em;color:var(--w);
+  margin-bottom:0.5rem;
+}
+.footer-logo span{color:var(--r);}
+.footer-tagline{font-size:0.78rem;color:#555;letter-spacing:0.06em;}
+.footer-links{list-style:none;display:flex;flex-direction:column;gap:0.6rem;}
+.footer-links a{font-size:0.8rem;color:#666;text-decoration:none;letter-spacing:0.06em;transition:color 0.15s;}
+.footer-links a:hover{color:var(--w);}
+.footer-legal{font-size:0.72rem;color:#444;line-height:1.8;}
+
+/* SCROLL REVEAL */
+.sr{opacity:0;transform:translateY(30px);transition:opacity 0.7s ease,transform 0.7s ease;}
+.sr.on{opacity:1;transform:none;}
+.sr-delay-1{transition-delay:0.1s;}
+.sr-delay-2{transition-delay:0.2s;}
+.sr-delay-3{transition-delay:0.3s;}
+
+@media(max-width:900px){
+  .hero{grid-template-columns:1fr;}
+  .hero-right{display:none;}
+  #about{grid-template-columns:1fr;}
+  .about-right{border-top:2px solid var(--b);}
+  #contact{grid-template-columns:1fr;}
+  .contact-right{border-top:2px solid var(--b);}
+  .articles-grid{grid-template-columns:1fr 1fr;}
+  .art-card:nth-child(3n){border-right:2px solid var(--b);}
+  .art-card:nth-child(2n){border-right:none;}
+  .topics-grid{grid-template-columns:repeat(2,1fr);}
+  .topic-item:nth-child(4n){border-right:2px solid var(--b);}
+  .topic-item:nth-child(2n){border-right:none;}
+  footer{grid-template-columns:1fr;}
+  .footer-block{border-right:none;border-bottom:1px solid rgba(255,255,255,0.08);}
+  .nav-links{display:none;}
+  .articles-header,.topics-head,.ad-zone{padding:2rem 1.5rem;}
+  .art-card{padding:1.8rem 1.5rem 1.5rem;}
+  .hero-left{padding:3rem 1.5rem;}
+  #about .about-left,#about .about-right{padding:3rem 1.5rem;}
+  #contact .contact-left,#contact .contact-right{padding:3rem 1.5rem;}
+}
+</style>
+</head>
+<body>
+
+<div id="cursor"></div>
+
+<!-- TICKER -->
+<div class="ticker">
+  <div class="ticker-inner">
+    FREE CAREER ADVICE <span>✦</span> LIFE GUIDANCE <span>✦</span> NO DATA COLLECTED <span>✦</span> NO PAYWALLS <span>✦</span> WRITTEN FOR REAL PEOPLE <span>✦</span> FREE CAREER ADVICE <span>✦</span> LIFE GUIDANCE <span>✦</span> NO DATA COLLECTED <span>✦</span> NO PAYWALLS <span>✦</span> WRITTEN FOR REAL PEOPLE <span>✦</span>
+  </div>
+</div>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo-block">
+    <a href="#" class="nav-logo">Human<span>.</span>Help</a>
+  </div>
+  <ul class="nav-links">
+    <li><a href="#articles">Articles</a></li>
+    <li><a href="#topics">Topics</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#contact" class="nav-cta">Contact Us</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-left">
+    <div>
+      <p class="hero-issue">Est. 2025 &nbsp;·&nbsp; Free for everyone &nbsp;·&nbsp; No signup needed</p>
+      <h1 class="hero-h1 sr">
+        Real<br>
+        <span class="red italic">advice</span><br>
+        for real<br>
+        <span class="red">people.</span>
+      </h1>
+      <p class="hero-desc sr sr-delay-1">Career stuck? Life feels complicated? We write honest, practical guidance on the questions everyone has but nobody answers clearly. Free, always.</p>
+    </div>
+    <div class="hero-bottom sr sr-delay-2">
+      <a href="#articles" class="btn-primary">Read Articles</a>
+      <a href="#about" class="btn-ghost">Our mission →</a>
+    </div>
+  </div>
+
+  <div class="hero-right">
+    <div class="hero-right-top">
+      <p class="hero-feature-label">Featured this week</p>
+      <h2 class="hero-feature-title">"How to get your first job when you have no experience and no connections."</h2>
+      <p class="hero-feature-desc">The strategies that actually work — not the ones career coaches sell you.</p>
+    </div>
+    <div class="hero-right-bottom">
+      <div class="mini-card">
+        <div>
+          <p class="mini-cat">Money</p>
+          <h3 class="mini-title">Saving money when there's nothing left to save</h3>
+        </div>
+        <a href="#" class="mini-arrow">↗</a>
+      </div>
+      <div class="mini-card">
+        <div>
+          <p class="mini-cat">Decisions</p>
+          <h3 class="mini-title">How to make the hard choice without regret</h3>
+        </div>
+        <a href="#" class="mini-arrow">↗</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- RED BAND -->
+<div class="band">
+  <div class="band-inner">
+    CAREER ADVICE <span>✦</span> LIFE SKILLS <span>✦</span> MONEY BASICS <span>✦</span> GETTING HIRED <span>✦</span> MAKING DECISIONS <span>✦</span> REAL ANSWERS <span>✦</span> CAREER ADVICE <span>✦</span> LIFE SKILLS <span>✦</span> MONEY BASICS <span>✦</span> GETTING HIRED <span>✦</span> MAKING DECISIONS <span>✦</span> REAL ANSWERS <span>✦</span>
+  </div>
+</div>
+
+<!-- AD -->
+<div class="ad-zone">
+  <span class="ad-label">Advertisement</span>
+  <div class="ad-slot"><!-- PASTE ADSTERRA CODE HERE --></div>
+</div>
+
+<!-- ARTICLES -->
+<section id="articles">
+  <div class="articles-header">
+    <h2 class="sr">Latest Articles</h2>
+    <a href="#">View all articles →</a>
+  </div>
+  <div class="articles-grid">
+    <a href="#" class="art-card sr">
+      <div class="art-num">01</div>
+      <p class="art-cat">Career</p>
+      <h3 class="art-title">How to Get Your First Job With Zero Experience</h3>
+      <p class="art-desc">What employers actually care about — and how to stand out when your resume is almost empty.</p>
+      <span class="art-read">Read Article</span>
+    </a>
+    <a href="#" class="art-card sr sr-delay-1">
+      <div class="art-num">02</div>
+      <p class="art-cat">Money</p>
+      <h3 class="art-title">Saving Money When It Feels Impossible</h3>
+      <p class="art-desc">Real strategies for when your income barely covers your expenses and saving feels like a joke.</p>
+      <span class="art-read">Read Article</span>
+    </a>
+    <a href="#" class="art-card sr sr-delay-2">
+      <div class="art-num">03</div>
+      <p class="art-cat">Decisions</p>
+      <h3 class="art-title">How to Make Hard Decisions Without Regret</h3>
+      <p class="art-desc">A framework for the moments when every option feels wrong and you just don't know what to do.</p>
+      <span class="art-read">Read Article</span>
+    </a>
+    <a href="#" class="art-card sr">
+      <div class="art-num">04</div>
+      <p class="art-cat">Career</p>
+      <h3 class="art-title">How to Write a Resume People Actually Read</h3>
+      <p class="art-desc">What hiring managers look for in 6 seconds — and what most people get completely wrong.</p>
+      <span class="art-read">Read Article</span>
+    </a>
+    <a href="#" class="art-card sr sr-delay-1">
+      <div class="art-num">05</div>
+      <p class="art-cat">Life Skills</p>
+      <h3 class="art-title">How to Stop Procrastinating (For Real This Time)</h3>
+      <p class="art-desc">Not another tips list. A real explanation of why your brain resists, and what fixes it.</p>
+      <span class="art-read">Read Article</span>
+    </a>
+    <a href="#" class="art-card sr sr-delay-2">
+      <div class="art-num">06</div>
+      <p class="art-cat">Relationships</p>
+      <h3 class="art-title">How to Set Boundaries Without Feeling Guilty</h3>
+      <p class="art-desc">Why saying no is one of the most powerful skills you can develop — and how to practice it.</p>
+      <span class="art-read">Read Article</span>
+    </a>
+  </div>
+</section>
+
+<!-- PULL QUOTE -->
+<div class="pullquote">
+  <blockquote class="sr">"Most advice online is written to get <em>clicks.</em> We write to actually <em>help.</em>"</blockquote>
+</div>
+
+<!-- AD -->
+<div class="ad-zone">
+  <span class="ad-label">Advertisement</span>
+  <div class="ad-slot"><!-- PASTE ADSTERRA CODE HERE --></div>
+</div>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="about-left sr">
+    <p class="about-label">About Human Help</p>
+    <h2 class="about-title">Built to help people.<br>Not to sell to them.</h2>
+    <div class="about-body">
+      <p>Human Help exists because honest, practical life advice should be available to everyone — not locked behind expensive courses or buried under clickbait.</p>
+      <p>Every article answers a question real people actually ask, written in plain language, with steps they can actually take. No jargon. No fluff. No agenda.</p>
+      <p>We don't collect your data. We don't require a login. We don't have a premium tier. We keep the lights on through advertising — that's it.</p>
+    </div>
+  </div>
+  <div class="about-right sr sr-delay-1">
+    <ul class="principles">
+      <li><span class="num">01</span> No data collected from visitors, ever</li>
+      <li><span class="num">02</span> No login required, no account, no tracking</li>
+      <li><span class="num">03</span> No misleading or sensationalized advice</li>
+      <li><span class="num">04</span> No paywalls, no premium plans</li>
+      <li><span class="num">05</span> Always free, always honest</li>
+    </ul>
+    <div class="about-right-footer">
+      <p>We keep the site running through small advertisements. Every article is free. Every piece of advice is genuine. That's the deal.</p>
+    </div>
+  </div>
+</section>
+
+<!-- TOPICS -->
+<section id="topics">
+  <div class="topics-head">
+    <h2 class="sr">Browse Topics</h2>
+    <span>Everything covered, for free</span>
+  </div>
+  <div class="topics-grid">
+    <div class="topic-item sr"><span class="topic-icon">💼</span><p class="topic-name">Getting a Job</p><p class="topic-count">Resumes, interviews, offers</p></div>
+    <div class="topic-item sr sr-delay-1"><span class="topic-icon">💰</span><p class="topic-name">Managing Money</p><p class="topic-count">Saving, budgeting, debt</p></div>
+    <div class="topic-item sr sr-delay-2"><span class="topic-icon">🧠</span><p class="topic-name">Mental Clarity</p><p class="topic-count">Stress, focus, decisions</p></div>
+    <div class="topic-item sr sr-delay-3"><span class="topic-icon">📈</span><p class="topic-name">Career Growth</p><p class="topic-count">Promotions, skills, pivots</p></div>
+    <div class="topic-item sr"><span class="topic-icon">🤝</span><p class="topic-name">Relationships</p><p class="topic-count">Boundaries, communication</p></div>
+    <div class="topic-item sr sr-delay-1"><span class="topic-icon">⏰</span><p class="topic-name">Productivity</p><p class="topic-count">Habits, time, motivation</p></div>
+    <div class="topic-item sr sr-delay-2"><span class="topic-icon">🌍</span><p class="topic-name">Big Decisions</p><p class="topic-count">Life crossroads, clarity</p></div>
+    <div class="topic-item sr sr-delay-3"><span class="topic-icon">📚</span><p class="topic-name">Learning Skills</p><p class="topic-count">Self-education, growth</p></div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="contact-left sr">
+    <h2>Got a question?<br>Ask us.</h2>
+    <p>Stuck on a career decision? Not sure what to do next in life? Send us a message. We read everything and try to reply to everyone.</p>
+  </div>
+  <div class="contact-right sr sr-delay-1">
+    <p>We're real people who genuinely want to help. Whether it's a quick question or something you've been thinking about for months — reach out. No judgment, no sales pitch.</p>
+    <div>
+      <a href="mailto:HumanHelpreal@gmail.com" class="email-link">✉ HumanHelpreal@gmail.com</a>
+      <p class="response-note" style="margin-top:1rem;">We aim to reply within 48 hours</p>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-block">
+    <div class="footer-logo">Human<span>.</span>Help</div>
+    <p class="footer-tagline">Free advice. No nonsense. No data.</p>
+  </div>
+  <div class="footer-block">
+    <ul class="footer-links">
+      <li><a href="#articles">Articles</a></li>
+      <li><a href="#topics">Topics</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </div>
+  <div class="footer-block">
+    <p class="footer-legal">© 2025 Human Help. All articles are free to read. No personal data is collected from visitors. Supported by advertising.</p>
+  </div>
+</footer>
+
+<script>
+// Custom cursor
+const cur = document.getElementById('cursor');
+document.addEventListener('mousemove', e => {
+  cur.style.left = e.clientX + 'px';
+  cur.style.top = e.clientY + 'px';
+});
+document.querySelectorAll('a,button').forEach(el => {
+  el.addEventListener('mouseenter', () => cur.classList.add('big'));
+  el.addEventListener('mouseleave', () => cur.classList.remove('big'));
+});
+
+// Scroll reveal
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('on'); });
+}, {threshold: 0.1});
+document.querySelectorAll('.sr').forEach(el => obs.observe(el));
+</script>
+</body>
+</html>
